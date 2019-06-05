@@ -88,8 +88,13 @@ while (!$canWrite) {
 }
   
 $iso_date = gmdate("Y-m-d\TH:i:s\Z");
-  
-fwrite($fh, "$iso_date,$geoplugin->ip,$geoplugin->city,$geoplugin->region,$geoplugin->regionCode,$geoplugin->regionName,$geoplugin->countryName,$geoplugin->countryCode,$geoplugin->latitude,$geoplugin->longitude\n");
+
+// Only record if a version is provided:
+if (isset($_REQUEST["version"]))
+  {
+    $version=$_REQUEST["version"];
+    fwrite($fh, "$iso_date,$version,$geoplugin->ip,$geoplugin->city,$geoplugin->region,$geoplugin->regionCode,$geoplugin->regionName,$geoplugin->countryName,$geoplugin->countryCode,$geoplugin->latitude,$geoplugin->longitude\n");
+  }
 
 fclose($fh);
   
